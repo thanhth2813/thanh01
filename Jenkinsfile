@@ -10,6 +10,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
+		sh ' sudo apt-get install npm'
                 sh 'npm install'
             }
         }
