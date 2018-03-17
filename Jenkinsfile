@@ -1,11 +1,26 @@
-node {
-    stage 'Stage 1'
-       echo 'Hello World 1'
-    stage 'Stage 2'
-       echo 'Hello World 2'
-    stage 'Stage 3'
-       echo 'Hello World 3'
-    stage 'Stage 4'
-       echo 'Hello World 4'
-}
+#!/usr/bin/env groovy
 
+pipeline {
+
+    agent {
+        docker {
+            image 'node'
+            args '-u root'
+        }
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building...'
+                sh 'npm install'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+                sh 'npm test'
+            }
+        }
+    }
+}
